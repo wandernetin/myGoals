@@ -25,7 +25,7 @@ const goalSchema = new Schema({
         type: Boolean,
         required: true,
     },
-}, {
+}, { 
     timestamps: true, //createdAt, updatedAt
 });
 

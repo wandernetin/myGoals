@@ -16,14 +16,15 @@ module.exports = {
     },
 
     async store(req, res) {
-        const {description, date, valueTotal, raised, priority} = req.body;
+        const {description, date, valueTotal, raised, priority, completed} = req.body;
 
         const goal = await Goal.create({ 
-            description, 
+            description,
             date,
             valueTotal, 
             raised, 
-            priority
+            priority,
+            completed
         });
         return res.json(goal);
     },
