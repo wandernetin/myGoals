@@ -1,12 +1,19 @@
-const restful = require('node-restful');
-const {Schema} = require('mongoose');
+const { Schema, model} = require('mongoose');
 
 const goalSchema = new Schema({
     description: {
         type: String,
         required: true,
     },
-    total: {
+    date: {
+        type: Date,
+        required: true,
+    },
+    valueTotal: {
+        type: Number,
+        required: true,
+    },
+    raised: {
         type: Number,
         required: true,
     },
@@ -14,19 +21,12 @@ const goalSchema = new Schema({
         type: String,
         required: true,
     },
-    dueDate: {
-        type: Date,
-        required: true,
-    },
-    current: {
-        type: Number,
-    },
     completed: {
         type: Boolean,
         required: true,
-    }, 
+    },
 }, {
-    timestamps: true
-})
+    timestamps: true, //createdAt, updatedAt
+});
 
-module.exports = restful.model('Goal', goalSchema)
+module.exports = model('Goal', goalSchema);

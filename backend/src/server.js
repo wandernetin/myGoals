@@ -4,15 +4,14 @@ const cors = require('cors');
 
 const routes = require('./routes');
 
-const app = express();
-const server = require('http').Server(app);
+const server = express();
 
-mongoose.connect('mongodb+srv://developer:developer@cluster0-ca8t3.mongodb.net/omnistack?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://developer:developer@cluster0-ca8t3.mongodb.net/myGoals?retryWrites=true&w=majority', {
     useNewUrlParser: true
 });
 
-app.use(cors());
-app.use(express.json());
-app.use(routes);
+server.use(cors());
+server.use(express.json());
+server.use(routes);
 
 server.listen(3333);
