@@ -30,9 +30,7 @@ module.exports = {
     },
 
     async delete(req, res) {
-        const id = req.query.id;
-        console.log(req.query.id);
-        const success = await Goal.findByIdAndDelete(id);
+        const success = await Goal.findByIdAndDelete(req.query.id);
         if (success) {
             res.status(204).end();
         } else { 

@@ -25,6 +25,10 @@ const goalSchema = new Schema({
         type: Boolean,
         required: true,
     },
+    image: {
+        type: String,
+        required: false,
+    },
 }, { 
     timestamps: true, //createdAt, updatedAt
 });
