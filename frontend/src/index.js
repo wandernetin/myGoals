@@ -5,6 +5,7 @@ import { Provider} from 'react-redux'
 import promise from 'redux-promise'
 import multi from 'redux-multi'
 import thunk from 'redux-thunk'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 import reducers from './main/reducers'
 import App from './main/App';
