@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators} from 'redux';
 import ProgressBar from 'react-bootstrap/ProgressBar'
+import Button from 'react-bootstrap/Button'
 
 import {getGoals} from './dashboardActions'
 
 import logo from '../assets/logo.png';
-import add from '../assets/add.png';
 
 import '../../node_modules/font-awesome/css/font-awesome.min.css'
 import './dashboard.css';
@@ -19,11 +19,6 @@ class Dashboard extends Component {
     }
 
     getPercentage(raised, total) {
-        console.log(raised);
-        console.log(total);
-
-
-        console.log(raised/total);
         return (raised/total) * 100;
     }
 
@@ -76,13 +71,13 @@ class Dashboard extends Component {
                 </div>    
                 <div className="add-button">
                     <Link to="/goal">
-                        <img src={add} alt="Add" height="60" width="60" />
+                        <Button variant="primary">Add Goal</Button>
                     </Link>
                 </div>
             </div>
         )
     }
-}
+} 
 
 const mapStateToProps = state => ({
     goals : state.dashboard.goals
