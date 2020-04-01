@@ -1,3 +1,5 @@
+const moment = require('moment');
+
 const Goal = require('../models/goal');
 
 module.exports = {
@@ -16,8 +18,9 @@ module.exports = {
     },
 
     async store(req, res) {
-        const {description, date, valueTotal, raised, priority, completed} = req.body;
+        var {description, date, valueTotal, raised, priority, completed} = req.body;
 
+        date = moment(date, "DD/MM/YYYY");
         const goal = await Goal.create({ 
             description,
             date,
