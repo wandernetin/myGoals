@@ -18,7 +18,7 @@ module.exports = {
     },
 
     async store(req, res) {
-        var {description, date, valueTotal, raised, priority, completed} = req.body;
+        var {description, date, valueTotal, raised, priority, completed, image} = req.body;
 
         date = moment(date, "DD/MM/YYYY");
         const goal = await Goal.create({ 
@@ -27,13 +27,15 @@ module.exports = {
             valueTotal, 
             raised, 
             priority,
-            completed
+            completed, 
+            image
         });
         return res.json(goal);
     },
 
     async delete(req, res) {
-        const success = await Goal.findByIdAndDelete(req.query.id);
+        console.log(req.body.goal._id);
+        const success = await Goal.findByIdAndDelete(req.body.goal._id);
         if (success) {
             res.status(204).end();
         } else { 
