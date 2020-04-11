@@ -34,7 +34,6 @@ module.exports = {
     },
 
     async delete(req, res) {
-        console.log(req.body.goal._id);
         const success = await Goal.findByIdAndDelete(req.body.goal._id);
         if (success) {
             res.status(204).end();
