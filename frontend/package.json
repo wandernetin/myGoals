@@ -10,6 +10,8 @@
     "node": "^12.9.0",
     "react": "^16.9.0",
     "react-bootstrap": "^1.0.0",
+    "react-bootstrap-calendar": "0.0.3",
+    "react-bs-notifier": "^5.0.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.0",
     "react-redux-toastr": "^7.6.4",

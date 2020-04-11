@@ -1,0 +1,17 @@
+.main-container {
+    max-width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.logo{
+    max-height: 100px;
+    text-align: center;
+}
+
+.logo img {
+    vertical-align: middle;
+    border-style: none;
+    margin-top: -50px;
+}
