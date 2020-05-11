@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
+
 import ProgressBar from 'react-bootstrap/ProgressBar'
 import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
+import { Form } from 'react-bootstrap';
 
 import { getGoals, removeGoal } from './dashboardActions'
 
@@ -13,6 +17,25 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css'
 import './dashboard.css';
 
 class Dashboard extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          show: false,
+          currentGoalId: '',
+          amount: ''
+        };
+      }
+    
+    handleClose() {
+        this.setState({show: false});
+    }
+
+    handleOpen(id) {
+        this.setState({show: true,
+          currentGoalId: id
+         });
+    }
 
     componentWillMount() {
         this.props.getGoals();
@@ -33,6 +56,20 @@ class Dashboard extends Component {
     deleteGoal(goal) {
         this.props.removeGoal(goal);
         this.props.getGoals();
+    }
+
+    onChange = e => {
+        this.setState({ [e.target.name]: e.target.value });
+    }
+
+    onSaveMoneySubmit(event) {
+        axios.put('http://localhost:3333/goals', {
+            currentGoalId: this.state.currentGoalId,
+            amount: this.state.amount
+        }).then(function (response) {
+            this.props.getGoals();
+            console.log(response);
+        });
     }
 
     render() {
@@ -67,7 +104,8 @@ class Dashboard extends Component {
                                                             <p><i className="fa fa-usd"></i> Raised: {goal.raised}</p>                                                   
                                                         </div>
                                                         <ProgressBar now={this.getPercentage(goal.raised, goal.valueTotal)} />
-                                                        <div className="removeButton">
+                                                        <div className="buttonsPanel">
+                                                            <Button variant="success" onClick={() => this.handleOpen(goal._id)}>Save Money</Button>
                                                             <Button variant="danger" onClick={() => this.deleteGoal(goal)}>Remove</Button>
                                                         </div>
                                                     </div>
@@ -87,6 +125,29 @@ class Dashboard extends Component {
                         <Button variant="primary">Add Goal</Button>
                     </Link>
                 </div>
+
+                <Modal show={this.state.show} onHide={() => this.handleClose()}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Insert amount of money saved.</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={this.onSaveMoneySubmit.bind(this)}>
+                            <Form.Group controlId="formGroupDescription">
+                                <Form.Label>Amount</Form.Label>
+                                <Form.Control type="text" name="amount" onChange={this.onChange} value={this.state.amount === null ? '' : this.state.amount} />
+                            </Form.Group>
+                            <div className="buttonsPanel">
+
+                                <Button variant="primary" type="submit" >
+                                    Submit
+                                </Button>
+                                <Button variant="secondary" onClick={() => this.handleClose()}>
+                                    Close
+                                </Button>
+                            </div>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
             </div>
         )
     }
