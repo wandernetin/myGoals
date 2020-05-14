@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import { Form, Button, Col, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import DatePicker from "react-datepicker";
 
 import logo from '../assets/logo.png';
 
+import "react-datepicker/dist/react-datepicker.css";
 import './goal.css';
 
 class Goal extends Component {
@@ -26,6 +28,12 @@ class Goal extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    handleDateChange = selectedDate => {
+        this.setState({
+          date: selectedDate
+        });
+      };
+
     onSubmit(event) {
         axios.post('http://localhost:3333/goals', {
             description: this.state.description,
@@ -39,6 +47,7 @@ class Goal extends Component {
         }).then(function (response) {
             console.log(response);
         });
+        this.props.history.push("/");
     }
 
     render() {
@@ -58,9 +67,8 @@ class Goal extends Component {
                             </Form.Group>
                             <Form.Group controlId="formGroupDate">
                                 <Form.Label>Date</Form.Label>
-                                <Form.Control type="text" name="date" onChange={this.onChange} value={this.state.date === null ? '' : this.state.date} />
+                                <DatePicker selected={this.state.date === null ? '' : this.state.date} onChange={this.handleDateChange} />
                             </Form.Group>
-
                             <Form.Group controlId="formGroupValueTotal">
                                 <Form.Label>Value Total</Form.Label>
                                 <Form.Control type="text" name="valueTotal" onChange={this.onChange} value={this.state.valueTotal === null ? '' : this.state.valueTotal} />
@@ -84,9 +92,14 @@ class Goal extends Component {
                                 <Form.Label>Link Image</Form.Label>
                                 <Form.Control type="text" name="image" onChange={this.onChange} value={this.state.image === null ? '' : this.state.image} />
                             </Form.Group>
-                            <Button variant="primary" type="submit" >
-                                Submit
-                        </Button>
+                            <div className="buttonsPanel">
+                                <Button variant="primary" type="submit" >
+                                    Submit
+                                </Button>
+                                <Link to="/">
+                                    <Button variant="danger">Cancel</Button>
+                                </Link>
+                            </div>
                         </Form>
                     </Col>
                 </Row>
