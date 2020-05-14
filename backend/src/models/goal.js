@@ -19,11 +19,11 @@ const goalSchema = new Schema({
     },
     priority: {
         type: String,
-        required: true,
+        required: false,
     },
     completed: {
         type: Boolean,
-        required: true,
+        required: false,
     },
     image: {
         type: String,
