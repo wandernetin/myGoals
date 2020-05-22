@@ -19,7 +19,6 @@ class Goal extends Component {
             valueTotal: '',
             raised: '',
             priority: '',
-            completed: '',
             image: ''
         };
     }
@@ -41,7 +40,6 @@ class Goal extends Component {
             valueTotal: this.state.valueTotal,
             raised: this.state.raised,
             priority: this.state.priority,
-            completed: this.state.completed === '' ? false : true,
             image: this.state.image
 
         }).then(function (response) {
@@ -59,14 +57,14 @@ class Goal extends Component {
                     </div>
                 </Link>
                 <Row>
-                    <Col xl={4} lg={4} md={6} sm={12}>
+                    <Col xl={3} lg={6} md={12} sm={12}>
                         <Form onSubmit={this.onSubmit.bind(this)}>
                             <Form.Group controlId="formGroupDescription">
                                 <Form.Label>Description</Form.Label>
                                 <Form.Control type="text" name="description" onChange={this.onChange} value={this.state.description === null ? '' : this.state.description} />
                             </Form.Group>
                             <Form.Group controlId="formGroupDate">
-                                <Form.Label>Date</Form.Label>
+                                <Form.Label>Date</Form.Label><br />
                                 <DatePicker selected={this.state.date === null ? '' : this.state.date} onChange={this.handleDateChange} />
                             </Form.Group>
                             <Form.Group controlId="formGroupValueTotal">
@@ -83,10 +81,6 @@ class Goal extends Component {
                                     <option>HIGH</option>
                                     <option>LOW</option>
                                 </Form.Control>
-                            </Form.Group>
-                            <Form.Group controlId="formGroupCompleted">
-                                <Form.Label>Completed</Form.Label>
-                                <Form.Check type="checkbox" name="completed" onChange={this.onChange} value={this.state.completed === null ? false : true} />
                             </Form.Group>
                             <Form.Group controlId="formGroupImage">
                                 <Form.Label>Link Image</Form.Label>

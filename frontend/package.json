@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@trendmicro/react-sidenav": "^0.5.0",
     "axios": "^0.19.0",
     "bootstrap": "^4.4.1",
     "font-awesome": "^4.7.0",
     "jquery": "^3.4.1",
     "mdbreact": "^4.26.1",
     "node": "^12.9.0",
-    "react": "^16.9.0",
+    "react": "^16.13.1",
     "react-bootstrap": "^1.0.0",
     "react-bootstrap-calendar": "0.0.3",
     "react-bs-notifier": "^5.0.0",
@@ -27,7 +28,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest --watch --config ./jest.config.json",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -46,6 +47,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.9.6",
     "css-loader": "^3.4.2",
     "style-loader": "^1.1.3"
   }

@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
-import ProgressBar from 'react-bootstrap/ProgressBar'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
+import ProgressBar from 'react-bootstrap/ProgressBar'
 import { Form } from 'react-bootstrap';
 
 import { getGoals, removeGoal } from './dashboardActions'
@@ -21,14 +21,14 @@ class Dashboard extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          show: false,
-          currentGoalId: '',
-          amount: ''
+            show: false,
+            currentGoalId: '',
+            amount: ''
         };
-      }
-    
+    }
+
     handleClose() {
-        this.setState({show: false});
+        this.setState({ show: false });
     }
 
     handleOpen(id) {
@@ -41,8 +41,9 @@ class Dashboard extends Component {
         this.props.getGoals();
     }
 
-    getPercentage(raised, total) {
-        return (raised / total) * 100;
+    deleteGoal(goal) {
+        this.props.removeGoal(goal);
+        this.props.getGoals();
     }
 
     getImage(image) {
@@ -53,23 +54,21 @@ class Dashboard extends Component {
         }
     }
 
-    deleteGoal(goal) {
-        this.props.removeGoal(goal);
-        this.props.getGoals();
+    getPercentage(raised, total) {
+        return (raised / total) * 100;
     }
 
     onChange = e => {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    onSaveMoneySubmit(event) {
-        axios.put('http://localhost:3333/goals', {
+    async onSaveMoneySubmit(event) {
+        let res = await axios.put('http://localhost:3333/goals', {
             currentGoalId: this.state.currentGoalId,
             amount: this.state.amount
-        }).then(function (response) {
-            this.props.getGoals();
-            console.log(response);
         });
+        this.props.getGoals();
+        console.log(res);
     }
 
     render() {
@@ -89,7 +88,6 @@ class Dashboard extends Component {
                                     goals.map(goal => (
                                         <li key={goal._id}>
                                             <div className="card">
-                                                {/* <img className="card-img-top" src="{goal.image}" alt="img"/> */}
                                                 <img className="card-img-top" src={this.getImage(goal.image)} alt="img" />
                                                 <div className="card-body">
                                                     <strong className="card-title">
@@ -101,7 +99,7 @@ class Dashboard extends Component {
                                                         </div>
                                                         <div className="moneyIcon">
                                                             <i className="fa fa-usd"></i> Total: {goal.valueTotal}
-                                                            <p><i className="fa fa-usd"></i> Raised: {goal.raised}</p>                                                   
+                                                            <p><i className="fa fa-usd"></i> Raised: {goal.raised}</p>
                                                         </div>
                                                         <ProgressBar now={this.getPercentage(goal.raised, goal.valueTotal)} />
                                                         <div className="buttonsPanel">
