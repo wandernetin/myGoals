@@ -21,10 +21,6 @@ const goalSchema = new Schema({
         type: String,
         required: false,
     },
-    completed: {
-        type: Boolean,
-        required: false,
-    },
     image: {
         type: String,
         required: false,

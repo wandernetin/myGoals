@@ -17,26 +17,22 @@ module.exports = {
 
     async saveMoney(req, res) {
         var {currentGoalId, amount} = req.body;
-        const goal = await Goal.findById(currentGoalId);
-        const value = +goal.raised + +amount;
-        await Goal.updateOne({_id: goal._id}, {$set:{raised:value}});
-
+        await Goal.updateOne({_id: currentGoalId}, {$set:{raised:amount}});
         const newGoal = await Goal.findById(currentGoalId);
 
-        return res.json(newGoal);
+        return res.status(200).json({status:"ok"});
 
     },
 
     async store(req, res) {
         
-        var {description, date, valueTotal, raised, priority, completed, image} = req.body;
+        var {description, date, valueTotal, raised, priority, image} = req.body;
         const goal = await Goal.create({ 
             description,
             date,
             valueTotal, 
             raised, 
             priority,
-            completed, 
             image
         });
         return res.json(goal);
