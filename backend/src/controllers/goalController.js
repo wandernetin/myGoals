@@ -4,7 +4,7 @@ module.exports = {
     async index(req, res) {
         const { descriptions } = req.headers;
 
-        if(descriptions) {
+        if (descriptions) {
             const goals = await Goal.find({
                 "description": descriptions
             })
@@ -16,22 +16,22 @@ module.exports = {
     },
 
     async saveMoney(req, res) {
-        var {currentGoalId, amount} = req.body;
-        await Goal.updateOne({_id: currentGoalId}, {$set:{raised:amount}});
+        var { currentGoalId, amount } = req.body;
+        await Goal.updateOne({ _id: currentGoalId }, { $set: { raised: amount } });
         const newGoal = await Goal.findById(currentGoalId);
 
-        return res.status(200).json({status:"ok"});
+        return res.status(200).json({ status: "ok" });
 
     },
 
     async store(req, res) {
-        
-        var {description, date, valueTotal, raised, priority, image} = req.body;
-        const goal = await Goal.create({ 
+
+        var { description, date, valueTotal, raised, priority, image } = req.body;
+        const goal = await Goal.create({
             description,
             date,
-            valueTotal, 
-            raised, 
+            valueTotal,
+            raised,
             priority,
             image
         });
@@ -42,7 +42,7 @@ module.exports = {
         const success = await Goal.findByIdAndDelete(req.body.goal._id);
         if (success) {
             res.status(204).end();
-        } else { 
+        } else {
             res.status(404).end();
         }
     }

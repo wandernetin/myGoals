@@ -43,7 +43,6 @@ class Goal extends Component {
             image: this.state.image
 
         }).then(function (response) {
-            console.log(response);
         });
         this.props.history.push("/");
     }

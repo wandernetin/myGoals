@@ -1,6 +1,9 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const routes = require('./routes');
 
@@ -11,7 +14,13 @@ mongoose.connect('mongodb+srv://developer:developer@cluster0-ca8t3.mongodb.net/m
 });
 
 server.use(cors());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 server.use(express.json());
 server.use(routes);
 
-server.listen(3333);
+// set port, listen for requests
+const PORT = 3333;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
