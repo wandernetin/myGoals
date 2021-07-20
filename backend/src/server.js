@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -9,7 +7,7 @@ const routes = require('./routes');
 
 const server = express();
 
-mongoose.connect('mongodb+srv://developer:developer@cluster0-ca8t3.mongodb.net/myGoals?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGODB, {
     useNewUrlParser: true
 });
 
@@ -20,7 +18,7 @@ server.use(express.json());
 server.use(routes);
 
 // set port, listen for requests
-const PORT = 3333;
+const PORT = 3000;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

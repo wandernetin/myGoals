@@ -1,24 +1,24 @@
 const express = require('express');
 const GoalController = require('./controllers/goalController');
-const { verifySignUp, authJwt } = require('./middleware');
-const controller = require('./controllers/authController');
-const userController = require('./controllers/userController');
+const UserController = require('./controllers/userController');
+const AuthController = require('./controllers/authController');
+
+const verifyToken = require('./services/verifyTokenService');
 
 const routes = express.Router();
 
-routes.get('/goals', GoalController.index);
-routes.put('/goals', GoalController.saveMoney);
-routes.post('/goals', GoalController.store);
-routes.delete('/goals', GoalController.delete);
-routes.post(
-    '/api/auth/signup',
-    [
-        verifySignUp.checkDuplicateUsernameOrEmail
-    ],
-    controller.signup
-);
-routes.post('/api/auth/signin', controller.signin);
-routes.get('/api/test/all', userController.allAccess);
-//routes.get('/api/test/user', [authJwt.verifyToken], controller.userBoard);
+routes.get('/goals', verifyToken, GoalController.index);
+routes.put('/goals', verifyToken, GoalController.saveMoney);
+routes.post('/goals', verifyToken, GoalController.store);
+routes.delete('/goals', verifyToken, GoalController.delete);
+
+routes.get("/user", verifyToken, UserController.index);
+routes.post("/user", verifyToken, UserController.store);
+routes.get("/user/:id", verifyToken, UserController.findUserByid);
+routes.delete("/user/:id", verifyToken, UserController.deleteUser);
+
+routes.post("/login", AuthController.login);
+routes.get("/logout", AuthController.logout);
+routes.post("/register", AuthController.register);
 
     module.exports = routes;
